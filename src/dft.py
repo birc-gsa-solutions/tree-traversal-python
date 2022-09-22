@@ -13,14 +13,18 @@ def in_order(t: T | None) -> Iterable[int]:
     """
     # When we have a tree on the stack we need to traverse it,
     # when we have an int it is a value we should emit
-    stack: list[T | int] = [t] if t else []
+    stack: list[T | int] = []
+
+    def push(x: int | T | None) -> None:
+        if x is not None:
+            stack.append(x)
+
+    push(t)
     while stack:
-        v = stack.pop()
-        if isinstance(v, int):
-            yield v
-        else:
-            if v.right:
-                stack.append(v.right)
-            stack.append(v.val)
-            if v.left:
-                stack.append(v.left)
+        match stack.pop():
+            case int(v):
+                yield v
+            case T(val=val, left=left, right=right):
+                push(right)
+                push(val)
+                push(left)
