@@ -69,11 +69,13 @@ def get_ancestor(v: T) -> T | None:
 
 
 def go_up(t: T) -> Generator[int, None, T | None]:
-    """Search up for the next place we can branch right.
+    """
+    Search up for the next place we can branch right.
 
     While we search up, we emit the nodes we meet on our way,
     as long as they are not parents of right-nodes on the path,
-    because we have already seen those."""
+    because we have already seen those.
+    """
     v: T | None = t
     while v:
         yield v.val
@@ -87,7 +89,8 @@ def go_up(t: T) -> Generator[int, None, T | None]:
 
 
 def in_order3(t: T | None) -> Iterable[int]:
-    """In-order traversal of a tree.
+    """
+    In-order traversal of a tree.
 
     >>> tree = T(2, T(1, None, None), T(4, T(3, None, None), T(5, None, None)))
     >>> list(in_order3(tree))
